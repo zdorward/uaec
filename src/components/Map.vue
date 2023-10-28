@@ -24,7 +24,7 @@
                 height: '75vh',
             }"
             :center="center"
-            :zoom="10"
+            :zoom="6"
         >
             <Marker
                 @click="details(event)"
@@ -41,6 +41,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import { GoogleMap, Marker } from 'vue3-google-map'
 import { ref } from 'vue'
 import flameRed from "../assets/flameRed.svg"; // Replace with the actual path
@@ -49,7 +50,6 @@ import flameYellow from "../assets/flameYellow.svg"; // Replace with the actual 
 import flameGreen from "../assets/flameGreen.svg"; // Replace with the actual path
 import flameWhite from "../assets/flameWhite.svg"; // Replace with the actual path
 
-const props = defineProps<{ city: string; country: string }>()
 
 const selectedEvent = ref('')
 const showDetails = ref(false)
@@ -74,13 +74,22 @@ const details = (event) =>{
     console.log(event)
 }
 const center = { lat: 53.5232, lng: -113.18 }
+const props = defineProps<{
+    range: number
+    difficulty: number
+    severity: number
+    center: { lat: number; lng: number }
+    city: string
+    country: string
+}>()
+
 var events: any = []
 
 const fetchEvents = async () => {
     const clientID = 'yJwWTL9ZIxBdwB74S77pX'
     const clientSecret = 'rzE1z8DJhQtmuDzJCNKyjCoBbOtZ27LpfBl8OHOg'
     const res = await fetch(
-        'https://api.aerisapi.com/fires/within?p=' + props.city + ',' + props.country + '&format=json&client_id=yJwWTL9ZIxBdwB74S77pX&client_secret=rzE1z8DJhQtmuDzJCNKyjCoBbOtZ27LpfBl8OHOg&limit=250&radius=1000km'
+        `https://api.aerisapi.com/fires/within?p=${props.city},ca&format=json&client_id=yJwWTL9ZIxBdwB74S77pX&client_secret=rzE1z8DJhQtmuDzJCNKyjCoBbOtZ27LpfBl8OHOg&limit=250&radius=3000km`
     )
     const e = await res.json()
     events = e.response
