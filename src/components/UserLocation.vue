@@ -52,6 +52,9 @@ const onOK = () => {
     if (city.value == 'Beijing') {
         center.value = { lat: 40, lng: 116 }
     }
+    if (city.value == 'Vancouver') {
+        center.value = { lat: 49, lng: -123 }
+    }
 }
 </script>
 
