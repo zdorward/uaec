@@ -12,9 +12,9 @@ const showButtons = ref(true)
 const showEnterLocation = ref(false)
 const showMap = ref(false)
 
-const range = ref(5)
-const difficulty = ref(2)
-const severity = ref(1)
+const range = ref(0)
+const difficulty = ref(0)
+const severity = ref(0)
 
 const center = ref({ lat: 53, lng: -113 })
 
