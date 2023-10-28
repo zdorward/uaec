@@ -7,7 +7,7 @@
                 height: '75vh',
             }"
             :center="center"
-            :zoom="10"
+            :zoom="6"
         >
             <Marker
                 v-for="event in events"
@@ -20,16 +20,25 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import { GoogleMap, Marker } from 'vue3-google-map'
 
-const center = { lat: 53.5232, lng: -113.18 }
+const props = defineProps<{
+    range: number
+    difficulty: number
+    severity: number
+    center: { lat: number; lng: number }
+    city: string
+    country: string
+}>()
+
 var events: any = []
 
 const fetchEvents = async () => {
     const clientID = 'yJwWTL9ZIxBdwB74S77pX'
     const clientSecret = 'rzE1z8DJhQtmuDzJCNKyjCoBbOtZ27LpfBl8OHOg'
     const res = await fetch(
-        'https://api.aerisapi.com/fires/within?p=edmonton,ab&format=json&client_id=yJwWTL9ZIxBdwB74S77pX&client_secret=rzE1z8DJhQtmuDzJCNKyjCoBbOtZ27LpfBl8OHOg&limit=250&radius=1000km'
+        `https://api.aerisapi.com/fires/within?p=${props.city},ca&format=json&client_id=yJwWTL9ZIxBdwB74S77pX&client_secret=rzE1z8DJhQtmuDzJCNKyjCoBbOtZ27LpfBl8OHOg&limit=250&radius=3000km`
     )
     const e = await res.json()
     events = e.response
