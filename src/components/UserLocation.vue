@@ -93,7 +93,11 @@ const onOK = () => {
             @difficulty="updateDifficulty"
             @severity="updateSeverity"
         ></Controls>
-        <Map></Map>
+        <Map
+            :range="range"
+            :difficulty="difficulty"
+            :severity="severity"
+        ></Map>
     </div>
 </template>
 
