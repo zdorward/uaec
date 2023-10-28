@@ -1,16 +1,37 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
-defineProps<{ city: string; country: string }>()
-const range = ref(0)
-const difficulty = ref(0)
-const severity = ref(0)
+const props = defineProps<{
+    range: number
+    difficulty: number
+    severity: number
+}>()
+const emit = defineEmits<{
+    (e: 'range', id: number): void
+    (e: 'difficulty', value: number): void
+    (e: 'severity', value: number): void
+}>()
+
+const range = ref(props.range)
+const difficulty = ref(props.difficulty)
+const severity = ref(props.severity)
+
+watch(range, (newRange) => {
+    emit('range', newRange)
+})
+watch(difficulty, (newDifficulty) => {
+    emit('difficulty', newDifficulty)
+})
+watch(severity, (newSeverity) => {
+    emit('severity', newSeverity)
+})
 </script>
 
 <template>
     <div class="controls">
         <div class="slider-container">
             <div class="slider">
+                Range of Fire: {{ range }}
                 <v-slider
                     v-model="range"
                     thumb-label
@@ -21,10 +42,10 @@ const severity = ref(0)
                     tick-size="4"
                 ></v-slider>
             </div>
-            <div class="name">Range of Fire: {{ range }}</div>
         </div>
         <div class="slider-container">
             <div class="slider">
+                Difficulty to contain: {{ difficulty }}
                 <v-slider
                     v-model="difficulty"
                     thumb-label
@@ -35,10 +56,10 @@ const severity = ref(0)
                     tick-size="4"
                 ></v-slider>
             </div>
-            <div class="name">Difficulty to contain: {{ difficulty }}</div>
         </div>
         <div class="slider-container">
             <div class="slider">
+                Severity of Fire: {{ severity }}
                 <v-slider
                     v-model="severity"
                     thumb-label
@@ -49,16 +70,18 @@ const severity = ref(0)
                     tick-size="4"
                 ></v-slider>
             </div>
-            <div class="name">Severity of Fire: {{ severity }}</div>
         </div>
     </div>
 </template>
 
 <style scoped>
 .controls {
+    display: flex;
     .slider-container {
+        width: 100%;
         display: flex;
-        gap: 20px;
+        flex-direction: column;
+        align-items: center;
         .slider {
             width: 200px;
         }

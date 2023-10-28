@@ -12,10 +12,25 @@ const showButtons = ref(true)
 const showEnterLocation = ref(false)
 const showMap = ref(false)
 
+const range = ref(0)
+const difficulty = ref(0)
+const severity = ref(0)
+
+const updateRange = (r: number) => {
+    range.value = r
+}
+const updateDifficulty = (d: number) => {
+    difficulty.value = d
+}
+const updateSeverity = (s: number) => {
+    severity.value = s
+}
+
 const onGetUserLocation = () => {
     console.log('test')
     getCoords()
     showButtons.value = false
+    showMap.value = true
 }
 
 const onShowshowEnterLocation = () => {
@@ -66,12 +81,19 @@ const onOK = () => {
         ></v-autocomplete>
         <v-btn @click="onOK">OK</v-btn>
     </div>
-    <div v-if="showMap">
-        <Map></Map>
+    <div
+        v-if="showMap"
+        class="map"
+    >
         <Controls
-            city="Edmonton"
-            country="Canada"
+            :range="range"
+            :difficulty="difficulty"
+            :severity="severity"
+            @range="updateRange"
+            @difficulty="updateDifficulty"
+            @severity="updateSeverity"
         ></Controls>
+        <Map></Map>
     </div>
 </template>
 
@@ -83,13 +105,18 @@ const onOK = () => {
         gap: 20px;
         font-size: 48px;
     }
-}
 
-.enter-location {
-    width: 300px;
+    .enter-location {
+        width: 300px;
 
-    .helper {
-        padding: 20px;
+        .helper {
+            padding: 20px;
+        }
+    }
+
+    .map {
+        display: flex;
+        flex-direction: row;
     }
 }
 </style>
