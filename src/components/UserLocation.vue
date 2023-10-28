@@ -49,6 +49,9 @@ const onOK = () => {
     if (city.value == 'Toronto') {
         center.value = { lat: 43, lng: -79 }
     }
+    if (city.value == 'Beijing') {
+        center.value = { lat: 40, lng: 116 }
+    }
 }
 </script>
 
@@ -84,7 +87,7 @@ const onOK = () => {
             <v-autocomplete
                 v-model="country"
                 label="Country"
-                :items="['Canada', 'USA', 'Mexico']"
+                :items="['Canada', 'USA', 'Mexico', 'China']"
                 placeholder="Edmonton"
             ></v-autocomplete>
             <v-btn @click="onOK">OK</v-btn>

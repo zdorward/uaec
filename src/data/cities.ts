@@ -1,4 +1,5 @@
 const canadian_cities: string[] = [
+    'Beijing',
     'Airdrie',
     'Grande Prairie',
     'Red Deer',
