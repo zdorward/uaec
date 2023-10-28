@@ -3,10 +3,14 @@ import { ref } from 'vue'
 import { getCoords } from '../composables/location'
 import { cities } from '../data/cities'
 
+import Map from './Map.vue'
+import Controls from './Controls.vue'
+
 const city = ref('')
 const country = ref('')
 const showButtons = ref(true)
 const showEnterLocation = ref(false)
+const showMap = ref(false)
 
 const onGetUserLocation = () => {
     console.log('test')
@@ -21,6 +25,7 @@ const onShowshowEnterLocation = () => {
 
 const onOK = () => {
     showEnterLocation.value = false
+    showMap.value = true
 }
 </script>
 
@@ -60,6 +65,13 @@ const onOK = () => {
             placeholder="Edmonton"
         ></v-autocomplete>
         <v-btn @click="onOK">OK</v-btn>
+    </div>
+    <div v-if="showMap">
+        <Map></Map>
+        <Controls
+            city="Edmonton"
+            country="Canada"
+        ></Controls>
     </div>
 </template>
 
