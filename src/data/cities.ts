@@ -1,4 +1,6 @@
-export const city_names = [
+const canadian_cities = ['Edmonton']
+
+const usa_cities = [
     'Aberdeen',
     'Abilene',
     'Akron',
@@ -385,3 +387,5 @@ export const city_names = [
     'York',
     'Youngstown',
 ]
+
+export const cities = [...canadian_cities, ...usa_cities].sort()

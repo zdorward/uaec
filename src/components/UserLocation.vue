@@ -1,21 +1,26 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { getCoords } from '../composables/location'
-import { city_names } from '../data/cities'
+import { cities } from '../data/cities'
 
-const location = ref('Edmonton')
+const city = ref('')
+const country = ref('')
 const showButtons = ref(true)
-const enterLocation = ref(false)
+const showEnterLocation = ref(false)
 
-const getUserLocation = () => {
+const onGetUserLocation = () => {
     console.log('test')
     getCoords()
     showButtons.value = false
 }
 
-const showEnterLocation = () => {
-    enterLocation.value = true
+const onShowshowEnterLocation = () => {
+    showEnterLocation.value = true
     showButtons.value = false
+}
+
+const onOK = () => {
+    showEnterLocation.value = false
 }
 </script>
 
@@ -26,27 +31,35 @@ const showEnterLocation = () => {
             class="buttons"
         >
             <v-btn
-                @click="getUserLocation"
+                @click="onGetUserLocation"
                 variant="outlined"
                 >Use Your Location</v-btn
             >
             <v-btn
-                @click="showEnterLocation"
+                @click="onShowshowEnterLocation"
                 variant="outlined"
                 >Enter Location</v-btn
             >
         </div>
     </div>
     <div
-        v-if="enterLocation"
+        v-if="showEnterLocation"
         class="enter-location"
     >
         <div class="helper">Enter Your Location:</div>
         <v-autocomplete
-            :items="city_names"
+            v-model="city"
+            label="City"
+            :items="cities"
             placeholder="Edmonton"
         ></v-autocomplete>
-        <v-btn>OK</v-btn>
+        <v-autocomplete
+            v-model="country"
+            label="Country"
+            :items="['Canada', 'USA', 'Mexico']"
+            placeholder="Edmonton"
+        ></v-autocomplete>
+        <v-btn @click="onOK">OK</v-btn>
     </div>
 </template>
 
@@ -62,5 +75,9 @@ const showEnterLocation = () => {
 
 .enter-location {
     width: 300px;
+
+    .helper {
+        padding: 20px;
+    }
 }
 </style>
