@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { getCoords } from './composables/location';
-getCoords();
+import UserLocation from './components/UserLocation.vue'
 </script>
 
 <template>
-    <v-btn>Button</v-btn>
+    <UserLocation></UserLocation>
 </template>
 
 <style scoped></style>
