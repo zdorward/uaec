@@ -67,7 +67,9 @@ const onOK = () => {
         <v-btn @click="onOK">OK</v-btn>
     </div>
     <div v-if="showMap">
-        <Map></Map>
+        <Map
+            :city="city"
+            :country="country"></Map>
         <Controls
             city="Edmonton"
             country="Canada"
